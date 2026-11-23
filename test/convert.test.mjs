@@ -1,0 +1,12 @@
+import assert from "node:assert/strict";
+import { toEhubUrl, unwrapAvanan } from "../src/convert.js";
+const id = "01a1d575-1921-73c2-9654-2b60ac814371";
+const wrapped = `https://url.avanan.click/v2/r01/___https://go.servicetitan.com/%23/task-center/tasks/${id}___.YXAzOmNhbm9weQ`;
+const want = `https://batterbee.eh.go.servicetitan.com/#/task-center/tasks/${id}`;
+assert.equal(unwrapAvanan(wrapped), `https://go.servicetitan.com/#/task-center/tasks/${id}`);
+assert.equal(toEhubUrl(wrapped, "batterbee"), want);
+assert.equal(toEhubUrl(`https://go.servicetitan.com/Auth/ExternalLogin#/task-center/tasks/${id}`, "batterbee"), want);
+assert.equal(toEhubUrl(`https://go.servicetitan.com/#/task-center/tasks/${id}`, "BatterBee"), want);
+assert.equal(toEhubUrl("https://example.com/", "batterbee"), null);
+assert.equal(toEhubUrl(wrapped, "bad_slug"), null);
+console.log("ok");
