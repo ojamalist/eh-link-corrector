@@ -2,13 +2,30 @@
   "manifest_version": 3,
   "name": "EH Link Corrector",
   "version": "0.1.0",
-  "description": "Rewrites ServiceTitan GO links from email notifications so they open in your eHub tenant.",
-  "permissions": ["storage", "tabs", "webNavigation"],
+  "description": "Opens ServiceTitan GO links from email in your eHub tenant instead of the shared GO login.",
+  "permissions": [
+    "storage",
+    "webNavigation"
+  ],
   "host_permissions": [
     "https://url.avanan.click/*",
-    "https://go.servicetitan.com/*"
+    "https://*.safelinks.protection.outlook.com/*",
+    
+    "https://urldefense.proofpoint.com/*",
+    "https://go.servicetitan.com/*",
+    "https://*.eh.go.servicetitan.com/*"
   ],
-  "background": { "service_worker": "src/background.js", "type": "module" },
-  "action": { "default_popup": "popup/popup.html", "default_title": "EH Link Corrector" },
-  "icons": { "16": "icons/16.png", "48": "icons/48.png", "128": "icons/128.png" }
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "EH Link Corrector"
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  }
 }

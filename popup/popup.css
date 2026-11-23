@@ -1,9 +1,6 @@
-body{width:320px;font:13px system-ui,sans-serif;margin:12px}
+body{width:300px;font:13px system-ui,sans-serif;margin:12px}
 h1{font-size:15px;margin:0 0 8px}
-input[type=search],#custom{width:100%;box-sizing:border-box;padding:6px;margin:6px 0}
-ul{list-style:none;margin:0;padding:0;max-height:220px;overflow:auto;border:1px solid #ddd;border-radius:6px}
-li{padding:7px 9px;cursor:pointer;border-bottom:1px solid #eee}
-li small{display:block;color:#666}
-li:hover{background:#f3f6fa} li.sel{background:#dbeafe}
-.custom{display:flex;gap:6px} .custom input{flex:1}
-#status{color:#166534;min-height:1.2em} #ms{width:100%}
+label{display:block;margin:8px 0}
+select,#custom{width:100%;box-sizing:border-box;padding:6px;margin-top:4px}
+.custom{display:flex;gap:6px} .custom input{flex:1;margin:0}
+.hint{color:#555;font-size:12px} #status{color:#166534;min-height:1.2em}

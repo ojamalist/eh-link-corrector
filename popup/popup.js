@@ -1,36 +1,28 @@
-import { TENANTS } from "../src/tenants.js";
 import { isValidSlug } from "../src/convert.js";
 
 const $ = (id) => document.getElementById(id);
-let current = null;
+let { tenants = [], activeSlug, enabled = true } = await chrome.storage.sync.get(["tenants", "activeSlug", "enabled"]);
 
 function render() {
-  const q = $("search").value.toLowerCase();
-  $("list").replaceChildren(...TENANTS
-    .filter(t => t.name.toLowerCase().includes(q) || t.slug.includes(q))
-    .map(t => {
-      const li = document.createElement("li");
-      li.className = t.slug === current ? "sel" : "";
-      li.textContent = t.name;
-      const s = document.createElement("small"); s.textContent = t.slug; li.append(s);
-      li.onclick = () => save(t.slug);
-      return li;
-    }));
+  $("tenant").replaceChildren(...(tenants.length ? tenants : [""]).map(s => {
+    const o = document.createElement("option");
+    o.value = s; o.textContent = s || "None yet — open your eHub site once";
+    o.selected = s === activeSlug;
+    return o;
+  }));
+  $("tenant").disabled = !tenants.length;
+  $("status").textContent = activeSlug ? `Links open at ${activeSlug}.eh.go.servicetitan.com` : "";
 }
 
-async function save(slug) {
-  if (!isValidSlug(slug)) { $("status").textContent = "Invalid slug"; return; }
-  current = slug.toLowerCase();
-  await chrome.storage.sync.set({ tenantSlug: current });
-  $("status").textContent = `Links will open at ${current}.eh.go.servicetitan.com`;
-  render();
-}
-
-const { tenantSlug, enabled = true } = await chrome.storage.sync.get(["tenantSlug", "enabled"]);
-current = tenantSlug || null;
 $("enabled").checked = enabled;
 $("enabled").onchange = (e) => chrome.storage.sync.set({ enabled: e.target.checked });
-$("search").oninput = render;
-$("save").onclick = () => save($("custom").value.trim());
-if (current) $("status").textContent = `Current: ${current}`;
+$("tenant").onchange = async (e) => { activeSlug = e.target.value; await chrome.storage.sync.set({ activeSlug }); render(); };
+$("add").onclick = async () => {
+  const slug = $("custom").value.trim().toLowerCase();
+  if (!isValidSlug(slug)) { $("status").textContent = "Invalid tenant name"; return; }
+  if (!tenants.includes(slug)) tenants = [...tenants, slug];
+  activeSlug = slug; $("custom").value = "";
+  await chrome.storage.sync.set({ tenants, activeSlug });
+  render();
+};
 render();

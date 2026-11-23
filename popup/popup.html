@@ -3,13 +3,15 @@
 <body>
   <h1>EH Link Corrector</h1>
   <label class="row"><input type="checkbox" id="enabled"> Enabled</label>
-  <input id="search" type="search" placeholder="Search tenants…">
-  <ul id="list"></ul>
+  <label>Your eHub tenant
+    <select id="tenant"></select>
+  </label>
   <div class="custom">
-    <input id="custom" placeholder="Or type a tenant slug">
-    <button id="save">Use</button>
+    <input id="custom" placeholder="Add tenant (e.g. acme)">
+    <button id="add">Add</button>
   </div>
+  <p class="hint">Tenants are detected automatically when you open your eHub site
+    (<code>&lt;tenant&gt;.eh.go.servicetitan.com</code>). Unofficial; not affiliated with ServiceTitan.</p>
   <p id="status"></p>
-  <button id="ms" disabled title="Planned: auto-detect tenant from Microsoft sign-in">Sign in with Microsoft (coming soon)</button>
   <script type="module" src="popup.js"></script>
 </body></html>
