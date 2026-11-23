@@ -12,9 +12,9 @@ export function unwrapAvanan(href) {
   try { return decodeURIComponent(m[1]); } catch { return m[1].replace(/%23/gi, "#"); }
 }
 
-/** True if the tenant slug is a valid DNS label. */
+/** Tenant slug as used in the eHub subdomain (underscores occur, e.g. larsonkeeneywi_sbet). */
 export function isValidSlug(slug) {
-  return /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/i.test(slug || "");
+  return /^[a-z0-9]([a-z0-9_-]*[a-z0-9])?$/i.test(slug || "");
 }
 
 /**

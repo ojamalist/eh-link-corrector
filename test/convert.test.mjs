@@ -8,5 +8,6 @@ assert.equal(toEhubUrl(wrapped, "batterbee"), want);
 assert.equal(toEhubUrl(`https://go.servicetitan.com/Auth/ExternalLogin#/task-center/tasks/${id}`, "batterbee"), want);
 assert.equal(toEhubUrl(`https://go.servicetitan.com/#/task-center/tasks/${id}`, "BatterBee"), want);
 assert.equal(toEhubUrl("https://example.com/", "batterbee"), null);
-assert.equal(toEhubUrl(wrapped, "bad_slug"), null);
+assert.equal(toEhubUrl(wrapped, "bad slug!"), null);
+assert.equal(toEhubUrl(wrapped, "larsonkeeneywi_sbet"), `https://larsonkeeneywi_sbet.eh.go.servicetitan.com/#/task-center/tasks/${id}`);
 console.log("ok");
